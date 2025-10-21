@@ -1,62 +1,13 @@
 <?php
-$v0 = 'Y2xhc3MgQ29tbWVudCAgZXh0ZW5kcyBNb2RlbHsKICBwdWJsaWMgc3RhdGljICRfdGFi';
-$v1 = '';
-$v2 = '';
-$v3 = '';
-$v4 = '';
-$v5 = '';
-$v6 = '';
-$v7 = '';
-$v8 = '';
-$v9 = 'bGUgPSAnY29tbWVudHMnOwogIHB1YmxpYyBmdW5jdGlvbiB1c2VyKCl7CiAgICByZXR1cm4gJHRoaXMtPmJlbG9uZ3NfdG8oI';
-$v10 = '';
-$v11 = '';
-$v12 = '';
-$v13 = '';
-$v14 = '';
-$v15 = '';
-$v16 = '';
-$v17 = '';
-$v18 = '';
-$v19 = 'lVzZXIiLCJ1c2VyX2lkIiktPmZpbmRfb25lKCk7C';
-$v20 = '';
-$v21 = '';
-$v22 = 'iAgfQogIHB1YmxpYyBmdW5jdGlvbiBwc';
-$v23 = '';
-$v24 = '';
-$v25 = '';
-$v26 = '';
-$v27 = '';
-$v28 = '';
-$v29 = '';
-$v30 = '';
-$v31 = '';
-$v32 = 'm9kdWN0KCl7CiAgICByZXR1cm4gJHRoaXMtP';
-$v33 = '';
-$v34 = '';
-$v35 = '';
-$v36 = '';
-$v37 = '';
-$v38 = '';
-$v39 = 'mJlbG9uZ3NfdG8oI';
-$v40 = '';
-$v41 = '';
-$v42 = '';
-$v43 = '';
-$v44 = '';
-$v45 = '';
-$v46 = '';
-$v47 = 'lByb2R1Y3QiKS0+ZmluZF9vbmUoKTsKICB9CgoKfQ==';
-$v48 = '';
-$v49 = '';
-$v50 = '';
-$v51 = '';
-$v52 = '';
-$v53 = '';
-$v54 = '';
-$v55 = '';
-$v56 = '';
-$v57 = '';
-$merged = $v0 . $v1 . $v2 . $v3 . $v4 . $v5 . $v6 . $v7 . $v8 . $v9 . $v10 . $v11 . $v12 . $v13 . $v14 . $v15 . $v16 . $v17 . $v18 . $v19 . $v20 . $v21 . $v22 . $v23 . $v24 . $v25 . $v26 . $v27 . $v28 . $v29 . $v30 . $v31 . $v32 . $v33 . $v34 . $v35 . $v36 . $v37 . $v38 . $v39 . $v40 . $v41 . $v42 . $v43 . $v44 . $v45 . $v46 . $v47 . $v48 . $v49 . $v50 . $v51 . $v52 . $v53 . $v54 . $v55 . $v56 . $v57;
-eval(base64_decode($merged));
+class Comment  extends Model{
+  public static $_table = 'comments';
+  public function user(){
+    return $this->belongs_to("User","user_id")->find_one();
+  }
+  public function product(){
+    return $this->belongs_to("Product")->find_one();
+  }
+
+
+}
 ?>

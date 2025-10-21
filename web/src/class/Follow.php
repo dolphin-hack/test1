@@ -1,54 +1,16 @@
 <?php
-$v0 = 'Y2xhc3MgRm9sbG93IGV4dGVuZHM';
-$v1 = '';
-$v2 = '';
-$v3 = '';
-$v4 = '';
-$v5 = '';
-$v6 = '';
-$v7 = '';
-$v8 = '';
-$v9 = 'gTW9kZWx7CiAgICBwdWJsaWMgc3RhdGljICRfdGFibGUgPSAnZm9sbG93';
-$v10 = '';
-$v11 = '';
-$v12 = '';
-$v13 = '';
-$v14 = '';
-$v15 = '';
-$v16 = '';
-$v17 = '';
-$v18 = '';
-$v19 = '';
-$v20 = 'cyc7CgogICAgcHVibGljICBmdW5jdGlvbiB0b191c2VyKCl7CiAgICAgICAgcmV0dXJuICRvcm0tPmJlbG9uZ3Nf';
-$v21 = '';
-$v22 = '';
-$v23 = '';
-$v24 = '';
-$v25 = '';
-$v26 = '';
-$v27 = 'dG8oIlVzZXIiLCJ0b191c2VyX2lkIik7CiAgICB9CgogICAgcHVibGljIC';
-$v28 = '';
-$v29 = 'BmdW5jdGlvbiBmcm9tX3VzZXIoKXsKICAgICAgICByZXR1cm4gJG9ybS0+Ym';
-$v30 = '';
-$v31 = '';
-$v32 = '';
-$v33 = '';
-$v34 = '';
-$v35 = '';
-$v36 = '';
-$v37 = '';
-$v38 = '';
-$v39 = 'Vsb25nc190bygiV';
-$v40 = '';
-$v41 = '';
-$v42 = '';
-$v43 = '';
-$v44 = '';
-$v45 = '';
-$v46 = '';
-$v47 = '';
-$v48 = 'XNlciIsImZyb21fdXNlcl9pZCIpOwogICAgfQoKCgp9';
-$v49 = '';
-$merged = $v0 . $v1 . $v2 . $v3 . $v4 . $v5 . $v6 . $v7 . $v8 . $v9 . $v10 . $v11 . $v12 . $v13 . $v14 . $v15 . $v16 . $v17 . $v18 . $v19 . $v20 . $v21 . $v22 . $v23 . $v24 . $v25 . $v26 . $v27 . $v28 . $v29 . $v30 . $v31 . $v32 . $v33 . $v34 . $v35 . $v36 . $v37 . $v38 . $v39 . $v40 . $v41 . $v42 . $v43 . $v44 . $v45 . $v46 . $v47 . $v48 . $v49;
-eval(base64_decode($merged));
+class Follow extends Model{
+    public static $_table = 'follows';
+
+    public  function to_user(){
+        return $orm->belongs_to("User","to_user_id");
+    }
+
+    public  function from_user(){
+        return $orm->belongs_to("User","from_user_id");
+    }
+
+
+
+}
 ?>

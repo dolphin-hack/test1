@@ -1,322 +1,69 @@
 <?php
-$v0 = 'Y2xhc3MgQ291cG9uIGV4dGVuZHMgTW9kZWx7CiAgICBwdWJsaWMgc3RhdGljICRfdGF';
-$v1 = '';
-$v2 = '';
-$v3 = '';
-$v4 = '';
-$v5 = '';
-$v6 = '';
-$v7 = '';
-$v8 = '';
-$v9 = 'ibGUgPSAnY291cG9ucyc7CgogICAgLy8gQ1JFQVRFIFRBQkxFIGNvdXBvbnMoaW';
-$v10 = '';
-$v11 = '';
-$v12 = '';
-$v13 = '';
-$v14 = '';
-$v15 = '';
-$v16 = 'QgSU5URUdFUiBQUklNQVJZIEtFWSBBVVRPX0lOQ1JFTUVOVCwgY29kZSBURVhULCBhb';
-$v17 = '';
-$v18 = '';
-$v19 = '';
-$v20 = 'W91bnQgSU5URUdFUiwgdXNlZCBJTlRFR0VSLCB0aW1lc3RhbXAgVElNRVNU';
-$v21 = '';
-$v22 = '';
-$v23 = 'QU1QIERFRkFVTFQgQ1VSUkVOVF9USU1FU1RBTVApOwoKICAgIHB1YmxpYyBzdGF0aWMgZnVuY3Rpb24gZ2VuZXJhdGUoJGNvZGUs';
-$v24 = '';
-$v25 = '';
-$v26 = '';
-$v27 = '';
-$v28 = '';
-$v29 = 'ICRhbW91bnQpewogICAgICAgICR0bXAgPSB';
-$v30 = '';
-$v31 = '';
-$v32 = '';
-$v33 = '';
-$v34 = '';
-$v35 = '';
-$v36 = '';
-$v37 = '';
-$v38 = '';
-$v39 = 'Nb2RlbDo6ZmFjdG9yeSgiQ291cG9uIiktPmNyZWF0ZSgpOwogICAgICAgICR0bXAtPmNvZGUgPSAkY29kZTsKICAgICAgIC';
-$v40 = '';
-$v41 = '';
-$v42 = '';
-$v43 = '';
-$v44 = 'AkdG1wLT5hbW91bnQgPSBpbnR2YWwoJGFtb3VudCk7CiAgICAgICAgJHRtcC0+dXNlZCA9IDA7CiAgICAgICAgJHRtcC0+c2F2';
-$v45 = '';
-$v46 = '';
-$v47 = '';
-$v48 = 'ZSgpOwogICAgI';
-$v49 = '';
-$v50 = '';
-$v51 = '';
-$v52 = '';
-$v53 = 'CAgIHJldHVybiB0cnVlOwogICAgIH0KCiAgI';
-$v54 = '';
-$v55 = '';
-$v56 = 'CBwdWJsaWMgc3RhdGlj';
-$v57 = '';
-$v58 = '';
-$v59 = '';
-$v60 = 'IGZ1bmN0aW9uIGlzQXZhaWxhYmxlKCRjb2RlKXsKICAgICAgICByZXR1cm4gTW9kZWw6OmZhY3RvcnkoJ0NvdXB';
-$v61 = '';
-$v62 = '';
-$v63 = '';
-$v64 = '';
-$v65 = 'vbicpCiAgICAgICAgLT53aGVyZSgnY29kZScsICRjb2RlKQogICAgICAgIC0+d2hlcmUoJ3VzZWQnLCAwKQog';
-$v66 = '';
-$v67 = '';
-$v68 = 'ICAgICAgIC0+ZmluZF9vbmUoKTsKICAgIH0KCiA';
-$v69 = '';
-$v70 = '';
-$v71 = '';
-$v72 = '';
-$v73 = '';
-$v74 = '';
-$v75 = 'gICBwdWJsaWMgc3RhdGljIGZ1bmN0aW9uIGdldEF2YWlsYWJs';
-$v76 = '';
-$v77 = '';
-$v78 = '';
-$v79 = '';
-$v80 = '';
-$v81 = '';
-$v82 = 'ZUNvZGVzKCl7CiAgICAgICAgcmV0dXJuIE1vZGVsOjpmYWN0b';
-$v83 = '';
-$v84 = '';
-$v85 = '';
-$v86 = '';
-$v87 = '';
-$v88 = '';
-$v89 = '';
-$v90 = '3J5KCdDb3Vwb24nKQogICAgICAgIC0+d2hlcmUoJ3VzZWQnLCAwKQogICAgICAgIC0+bGltaX';
-$v91 = '';
-$v92 = '';
-$v93 = '';
-$v94 = '';
-$v95 = '';
-$v96 = '';
-$v97 = 'QoMTApCiAgICAgICAgLT5maW5kX21hbnkoKTsKICAgIH0KCiAgICBwdWJsaWMgc3RhdGljIGZ1bmN0aW9uIGdldFVz';
-$v98 = '';
-$v99 = '';
-$v100 = '';
-$v101 = '';
-$v102 = '';
-$v103 = 'ZWRDb2RlcygkaWQpewogICAgICAgIHJldHVybiBNb2RlbDo6ZmFjdG9yeSgnQ291cG9uJykKICAgICAgIC';
-$v104 = '';
-$v105 = '';
-$v106 = '';
-$v107 = '';
-$v108 = '';
-$v109 = '';
-$v110 = '';
-$v111 = '';
-$v112 = '';
-$v113 = '';
-$v114 = 'AtPndoZXJlKCd1c2VkJywgMSkKICAgICAgICAtPndoZXJlKCdpZCcsICRpZCkKICAgICAgICAtPm9';
-$v115 = '';
-$v116 = '';
-$v117 = '';
-$v118 = 'yZGVyX2J5X2Rlc2MoJ3';
-$v119 = '';
-$v120 = '';
-$v121 = '';
-$v122 = 'RpbWVzdGFtcCcpCiAgICAgICAgLT5saW1pdCgxMCkKICAgICAgICAtPmZpbmRf';
-$v123 = '';
-$v124 = '';
-$v125 = '';
-$v126 = '';
-$v127 = '';
-$v128 = 'bWFueSgpOwogICAgfQoKICAgIHB1YmxpYyBzdGF0aWMgZnVuY3Rpb24g';
-$v129 = '';
-$v130 = '';
-$v131 = '';
-$v132 = '';
-$v133 = '';
-$v134 = '';
-$v135 = '';
-$v136 = '';
-$v137 = '';
-$v138 = 'dXBkYXRlKCR1c2VyLCAkY29kZSl7CiAgICAgICAgaWYoIWVtcHR5KCRjb2RlKSAmJiBpc19vYmp';
-$v139 = '';
-$v140 = '';
-$v141 = '';
-$v142 = '';
-$v143 = '';
-$v144 = '';
-$v145 = '';
-$v146 = '';
-$v147 = '';
-$v148 = '';
-$v149 = 'lY3QoJHVzZXIpKXsKICAgICAgICAgICAgdHJ5IHsKICAgICAgICAgICAgICAgICRjID0gTW9kZWw6OmZhY3R';
-$v150 = '';
-$v151 = '';
-$v152 = '';
-$v153 = '';
-$v154 = '';
-$v155 = '';
-$v156 = '';
-$v157 = 'vcnkoIkNvdXBvbiIpCiAgICAgICAgICAgIC';
-$v158 = '';
-$v159 = '';
-$v160 = '';
-$v161 = '';
-$v162 = '';
-$v163 = '';
-$v164 = '';
-$v165 = '';
-$v166 = '';
-$v167 = 'AgICAtPndoZXJlKCdjb2RlJywgJGNvZGUpCiAgICAgICAgICAgICAgICAtPmZpbmRfb25lKCk7CiAgICAgICAgICAgICAg';
-$v168 = '';
-$v169 = '';
-$v170 = '';
-$v171 = '';
-$v172 = 'ICBpZigkYyBpbnN0YW5jZW9mIE1vZGVsICYmICEkYy0+dXNlZCl7CiAgICAgICAgICAgICAgICAgICAgLy8g44';
-$v173 = '';
-$v174 = '';
-$v175 = '';
-$v176 = '';
-$v177 = '';
-$v178 = '';
-$v179 = '';
-$v180 = '';
-$v181 = '';
-$v182 = '';
-$v183 = 'Od44Kk44Oz44OI6L+95Yqg5Yem55CG44KS5YWl44KM44KLCiAgICAgICAgICAgICA';
-$v184 = '';
-$v185 = '';
-$v186 = '';
-$v187 = '';
-$v188 = '';
-$v189 = '';
-$v190 = '';
-$v191 = '';
-$v192 = 'gICAgICAgJHVzZXItPnBvaW50ICs9IGludHZhbCgkYy0+YW1vdW50KTsKICAgICAgICAgICAgICAgICAgIC';
-$v193 = '';
-$v194 = '';
-$v195 = '';
-$v196 = '';
-$v197 = '';
-$v198 = '';
-$v199 = '';
-$v200 = '';
-$v201 = '';
-$v202 = 'AkdXNlci0+c2F2ZSgpOwogICAgICAgICAgICAgICAg';
-$v203 = '';
-$v204 = '';
-$v205 = '';
-$v206 = '';
-$v207 = '';
-$v208 = '';
-$v209 = '';
-$v210 = '';
-$v211 = '';
-$v212 = 'ICAgIC8vIOODneOCpOODs+ODiOi/veWKoOWxpeattOO';
-$v213 = '';
-$v214 = '';
-$v215 = '';
-$v216 = '';
-$v217 = '';
-$v218 = 'CkuabuOOBjei+vOOCgAogICAgICAgICAgICAgICAgICAgICRjaGlzdG9y';
-$v219 = '';
-$v220 = '';
-$v221 = '';
-$v222 = '';
-$v223 = 'eSA9IE1vZGVsOjpmYWN0b3J5KCdQb2ludEhpc3RvcnknKS0+Y3JlYXRlKCk7C';
-$v224 = '';
-$v225 = '';
-$v226 = '';
-$v227 = '';
-$v228 = '';
-$v229 = '';
-$v230 = '';
-$v231 = '';
-$v232 = 'iAgICAgICAgICAgICAgICAgICAgJGNoaXN0b3J5LT51c2VyX2lkID0gJHV';
-$v233 = '';
-$v234 = 'zZXItPmlkOwogICAgICAgICAgICAgICAgICAgICRjaGlzdG9yeS0+YW1vdW50ID0gJGMtPmFtb3VudDsKICAgICAgICAgI';
-$v235 = '';
-$v236 = '';
-$v237 = '';
-$v238 = '';
-$v239 = '';
-$v240 = 'CAgICAgICAgI';
-$v241 = '';
-$v242 = '';
-$v243 = '';
-$v244 = '';
-$v245 = '';
-$v246 = '';
-$v247 = '';
-$v248 = 'CAkY2hpc3RvcnktPnNhdmUoKTsKCQkgICAgLy8gMjAxMy0wMi0yNCBZYW1hZGE6IOOBk+OCjOOCkua2iOOBmeOBqO';
-$v249 = '';
-$v250 = '';
-$v251 = '';
-$v252 = '';
-$v253 = '';
-$v254 = '';
-$v255 = '';
-$v256 = '';
-$v257 = '';
-$v258 = 'OBhuOBvuOBj+WLleOBi+OBquOBhOOBruOBp+WJiumZpOOBl+OBquOBhOOBk+OBqAoJCSAgICBzbGVlcCgxKTsKICAgI';
-$v259 = '';
-$v260 = '';
-$v261 = '';
-$v262 = 'CAgICAgICAgICAgICAgICAvLyDjgq/jg7';
-$v263 = '';
-$v264 = '';
-$v265 = '';
-$v266 = '';
-$v267 = '';
-$v268 = '';
-$v269 = '';
-$v270 = 'zjg53jg7PjgrPjg7zjg4njgpLkv';
-$v271 = '';
-$v272 = '';
-$v273 = '';
-$v274 = '';
-$v275 = '';
-$v276 = '';
-$v277 = '';
-$v278 = '';
-$v279 = 'b/nlKjmuIjjgb/jgavlpInmm7QKICAgICAgICAgICAgICAgICAgICAkYy0+d';
-$v280 = '';
-$v281 = '';
-$v282 = 'XNlZCA9IDE7CiAgICAgICAgICAgICAgICAgICAg';
-$v283 = '';
-$v284 = 'JGMtPnNhdmUoKTsKICAgICAgICAgICAgICAgICAgICByZXR1cm';
-$v285 = '';
-$v286 = '';
-$v287 = '';
-$v288 = '';
-$v289 = '';
-$v290 = '';
-$v291 = '';
-$v292 = '4gdHJ1ZTsKICAgICAgICAgICAgICAgIH0K';
-$v293 = '';
-$v294 = '';
-$v295 = '';
-$v296 = 'ICAgICAgICAgICAgfSBjYXRjaCAoRXhjZXB0aW9uICRlKSB7CiAgI';
-$v297 = '';
-$v298 = '';
-$v299 = '';
-$v300 = '';
-$v301 = '';
-$v302 = '';
-$v303 = '';
-$v304 = '';
-$v305 = '';
-$v306 = 'CAgICAgICAgICAgICBlcnJvcl9sb2coIkVSUk9SOiAiIC4gJGUtPmdldE1lc3Nh';
-$v307 = '';
-$v308 = '';
-$v309 = '';
-$v310 = '';
-$v311 = '';
-$v312 = '';
-$v313 = '';
-$v314 = '';
-$v315 = '';
-$v316 = 'Z2UoKSk7CiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgoKfQo=';
-$v317 = '';
-$merged = $v0 . $v1 . $v2 . $v3 . $v4 . $v5 . $v6 . $v7 . $v8 . $v9 . $v10 . $v11 . $v12 . $v13 . $v14 . $v15 . $v16 . $v17 . $v18 . $v19 . $v20 . $v21 . $v22 . $v23 . $v24 . $v25 . $v26 . $v27 . $v28 . $v29 . $v30 . $v31 . $v32 . $v33 . $v34 . $v35 . $v36 . $v37 . $v38 . $v39 . $v40 . $v41 . $v42 . $v43 . $v44 . $v45 . $v46 . $v47 . $v48 . $v49 . $v50 . $v51 . $v52 . $v53 . $v54 . $v55 . $v56 . $v57 . $v58 . $v59 . $v60 . $v61 . $v62 . $v63 . $v64 . $v65 . $v66 . $v67 . $v68 . $v69 . $v70 . $v71 . $v72 . $v73 . $v74 . $v75 . $v76 . $v77 . $v78 . $v79 . $v80 . $v81 . $v82 . $v83 . $v84 . $v85 . $v86 . $v87 . $v88 . $v89 . $v90 . $v91 . $v92 . $v93 . $v94 . $v95 . $v96 . $v97 . $v98 . $v99 . $v100 . $v101 . $v102 . $v103 . $v104 . $v105 . $v106 . $v107 . $v108 . $v109 . $v110 . $v111 . $v112 . $v113 . $v114 . $v115 . $v116 . $v117 . $v118 . $v119 . $v120 . $v121 . $v122 . $v123 . $v124 . $v125 . $v126 . $v127 . $v128 . $v129 . $v130 . $v131 . $v132 . $v133 . $v134 . $v135 . $v136 . $v137 . $v138 . $v139 . $v140 . $v141 . $v142 . $v143 . $v144 . $v145 . $v146 . $v147 . $v148 . $v149 . $v150 . $v151 . $v152 . $v153 . $v154 . $v155 . $v156 . $v157 . $v158 . $v159 . $v160 . $v161 . $v162 . $v163 . $v164 . $v165 . $v166 . $v167 . $v168 . $v169 . $v170 . $v171 . $v172 . $v173 . $v174 . $v175 . $v176 . $v177 . $v178 . $v179 . $v180 . $v181 . $v182 . $v183 . $v184 . $v185 . $v186 . $v187 . $v188 . $v189 . $v190 . $v191 . $v192 . $v193 . $v194 . $v195 . $v196 . $v197 . $v198 . $v199 . $v200 . $v201 . $v202 . $v203 . $v204 . $v205 . $v206 . $v207 . $v208 . $v209 . $v210 . $v211 . $v212 . $v213 . $v214 . $v215 . $v216 . $v217 . $v218 . $v219 . $v220 . $v221 . $v222 . $v223 . $v224 . $v225 . $v226 . $v227 . $v228 . $v229 . $v230 . $v231 . $v232 . $v233 . $v234 . $v235 . $v236 . $v237 . $v238 . $v239 . $v240 . $v241 . $v242 . $v243 . $v244 . $v245 . $v246 . $v247 . $v248 . $v249 . $v250 . $v251 . $v252 . $v253 . $v254 . $v255 . $v256 . $v257 . $v258 . $v259 . $v260 . $v261 . $v262 . $v263 . $v264 . $v265 . $v266 . $v267 . $v268 . $v269 . $v270 . $v271 . $v272 . $v273 . $v274 . $v275 . $v276 . $v277 . $v278 . $v279 . $v280 . $v281 . $v282 . $v283 . $v284 . $v285 . $v286 . $v287 . $v288 . $v289 . $v290 . $v291 . $v292 . $v293 . $v294 . $v295 . $v296 . $v297 . $v298 . $v299 . $v300 . $v301 . $v302 . $v303 . $v304 . $v305 . $v306 . $v307 . $v308 . $v309 . $v310 . $v311 . $v312 . $v313 . $v314 . $v315 . $v316 . $v317;
-eval(base64_decode($merged));
+class Coupon extends Model{
+    public static $_table = 'coupons';
+
+    // CREATE TABLE coupons(id INTEGER PRIMARY KEY AUTO_INCREMENT, code TEXT, amount INTEGER, used INTEGER, timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+    public static function generate($code, $amount){
+        $tmp = Model::factory("Coupon")->create();
+        $tmp->code = $code;
+        $tmp->amount = intval($amount);
+        $tmp->used = 0;
+        $tmp->save();
+        return true;
+     }
+
+    public static function isAvailable($code){
+        return Model::factory('Coupon')
+        ->where('code', $code)
+        ->where('used', 0)
+        ->find_one();
+    }
+
+    public static function getAvailableCodes(){
+        return Model::factory('Coupon')
+        ->where('used', 0)
+        ->limit(10)
+        ->find_many();
+    }
+
+    public static function getUsedCodes($id){
+        return Model::factory('Coupon')
+        ->where('used', 1)
+        ->where('id', $id)
+        ->order_by_desc('timestamp')
+        ->limit(10)
+        ->find_many();
+    }
+
+    public static function update($user, $code){
+        if(!empty($code) && is_object($user)){
+            try {
+                $c = Model::factory("Coupon")
+                ->where('code', $code)
+                ->find_one();
+                if($c instanceof Model && !$c->used){
+                    // ポイント追加処理を入れる
+                    $user->point += intval($c->amount);
+                    $user->save();
+                    // ポイント追加履歴を書き込む
+                    $chistory = Model::factory('PointHistory')->create();
+                    $chistory->user_id = $user->id;
+                    $chistory->amount = $c->amount;
+                    $chistory->save();
+		    // 2013-02-24 Yamada: これを消すとうまく動かないので削除しないこと
+		    sleep(1);
+                    // クーポンコードを使用済みに変更
+                    $c->used = 1;
+                    $c->save();
+                    return true;
+                }
+            } catch (Exception $e) {
+                error_log("ERROR: " . $e->getMessage());
+            }
+        }
+    }
+
+
+}
 ?>
