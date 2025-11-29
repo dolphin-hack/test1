@@ -26,18 +26,16 @@ include("./links.php");
 <div class="section">
 <?php
 if($_SERVER["REQUEST_METHOD"] != "POST" || !tokencheck()){
-    $to_user = User::raw_query("SELECT * FROM users WHERE id={$id}")->find_one();
+    $to_user = User::find_one($id);
 } else {
-    $from_id = $_POST["from_id"];
     $to_user = User::find_one($to_id);
-    $from_user = User::find_one($from_id);
     print '<article class="message is-info">';
-    if($to_user && $to_user->id != $from_id){
-      if($type == 1 && ((int)$to_id != $from_id) && !$from_user->isFollow($to_user)){
-      $from_user->follow(User::find_one($to_id));
+    if($to_user && $to_user->id != $user->id){
+      if($type == 1 && ((int)$to_id != $user->id) && !$user->isFollow($to_user)){
+      $user->follow(User::find_one($to_id));
       echo '  <div class="message-body">'.h($to_user->name) . $lang["user_msg_follow"] . '</div>';
-    } elseif($type == 0 && ((int)$to_id != $from_id) && $from_user->isFollow($to_user)) {
-      $from_user->unfollow(User::find_one($to_id));
+    } elseif($type == 0 && ((int)$to_id != $user->id) && $user->isFollow($to_user)) {
+      $user->unfollow(User::find_one($to_id));
       echo '  <div class="message-body">'.h($to_user->name) . $lang["user_msg_unfollow"] . '</div>';
     }
     print '</article>';
@@ -56,7 +54,6 @@ if($_SERVER["REQUEST_METHOD"] != "POST" || !tokencheck()){
     <form method="POST">
       <input type="hidden" name="type" value="0">
       <input type="hidden" name="to_id" value="<?php print h($to_user->id); ?>">
-      <input type="hidden" name="from_id" value="<?php print h($user->id); ?>">
       <input type="hidden" name="csrf_token" value="<?php echo $_SESSION["csrf_token"]; ?>">
       <input type="submit" value="<?php echo $lang["user_unfollow"]; ?>" class="button is-danger">
     </form>
@@ -91,7 +88,6 @@ if($_SERVER["REQUEST_METHOD"] != "POST" || !tokencheck()){
     <form method="POST">
       <input type="hidden" name="type" value="0">
       <input type="hidden" name="to_id" value="<?php print h($to_user->id); ?>">
-      <input type="hidden" name="from_id" value="<?php print h($user->id); ?>">
       <input type="hidden" name="csrf_token" value="<?php echo $_SESSION["csrf_token"]; ?>">
       <input class="button is-danger" type="submit" value="<?php echo $lang["user_unfollow"]; ?>">
     </form>
@@ -103,7 +99,6 @@ if($_SERVER["REQUEST_METHOD"] != "POST" || !tokencheck()){
     <form method="POST">
       <input type="hidden" name="type" value="1">
       <input type="hidden" name="to_id" value="<?php echo h($to_user->get("id")); ?>" />
-      <input type="hidden" name="from_id" value="<?php print h($user->id); ?>">
       <input type="hidden" name="csrf_token" value="<?php echo $_SESSION["csrf_token"]; ?>">
       <input class="button is-info" type="submit" value="<?php echo $lang["user_follow"]; ?>" />
     </form>
@@ -132,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"] != "POST" || !tokencheck()){
             <article class="media">
               <figure class="media-left">
                 <p class="image is-128x128">
-                  <img src="./img.php?id=<?php hp($p->id); ?>" alt=<?php hp($p->title); ?> style="margin:0 auto;text-align:center;" >
+                  <img src="./img.php?id=<?php hp($p->id); ?>" alt="<?php hp($p->title); ?>" style="margin:0 auto;text-align:center;" >
                 </p>
               </figure>
               <div class="media-content">

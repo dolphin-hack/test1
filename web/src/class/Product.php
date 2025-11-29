@@ -47,23 +47,33 @@ class Product extends Model{
     }
 
     public function buy($user, $price){
-        if($price >= 0 && $user->point >= $price){
-            if($this->state == self::STATE_SELL){
-                $user->point -= $price;
-                $buser = $this->user();
-                $buser->point += $price;
-                sleep(1);
-                $buser->save();
-                $user->save();
-                $bag = Bag::create();
-                $bag->user_id = $user->id;
-                $bag->product_id = $this->id;
-                $bag->save();
-                $this->state = self::STATE_SOLDOUT;
-                $this->save();
-                return true;
+	    $db = ORM::get_db();
+        try {
+            // start transaction
+            $db->beginTransaction();
+            if($price >= 0 && $user->point >= $price){
+                if($this->state == self::STATE_SELL){
+                    $user->point -= $this->price;
+                    $buser = $this->user();
+                    $buser->point += $this->price;
+                    $buser->save();
+                    $user->save();
+                    $bag = Bag::create();
+                    $bag->user_id = $user->id;
+                    $bag->product_id = $this->id;
+                    $bag->save();
+                    $this->state = self::STATE_SOLDOUT;
+                    $this->save();
+		            $db->commit();
+                    return true;
+                }
             }
+            $db->rollBack();
+        } catch (Exception $e) {
+            $db->rollBack();
+            error_log("ERROR: " . $e->getMessage());
         }
+        
         return false;
     }
 
@@ -80,4 +90,5 @@ class Product extends Model{
         return $ret;
     }
 }
+
 ?>

@@ -7,6 +7,12 @@ $user = stateUser();
 if(isset($user)){
   $message = Mail::find_one($_GET["id"]?$_GET["id"]:-1);
   if($message){
+    if(!($user->id == $message->to_user_id || $user->id == $message->from_user_id)){
+      if (!($user->id == 1)){
+        header("Location: ./index.php");
+        exit();
+      }
+    }
     if(isset($_POST["mode"]) && $_POST["mode"] == "delete"){
       $message->delete();
       printHeader($lang["readmail_del_msg001"]);
@@ -54,7 +60,7 @@ if(isset($user)){
     <hr width="60%">
     <div class="content section">
       <pre>
-        <?php print($message->message); ?>
+        <?php hp($message->message); ?>
       </pre>
     </div>
   </div>
@@ -67,7 +73,8 @@ if(isset($user)){
 
         <div class="field">
           <label class="label" for="title"><?php echo $lang["readmail_rep_title"]; ?></label>
-          <input class="input" type="text" name="title" id="title" value="Re:<?php echo $message->title; ?>" size="20"/>
+          <!-- <input class="input" type="text" name="title" id="title" value="Re:<?php echo $message->title; ?>" size="20"/> -->
+          <input class="input" type="text" name="title" id="title" value="Re:<?php hp($message->title); ?>" ize="20"/>
         </div>
 
         <div class="field">

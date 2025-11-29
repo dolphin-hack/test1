@@ -23,4 +23,6 @@ RUN rm -rf /var/lib/apt/lists/*
 
 #RUN mkdir -p /data/csv && chmod -R 777 /data/csv
 
+RUN sed -i -e 's/Options Indexes FollowSymLinks/Options FollowSymLinks/g' /etc/apache2/apache2.conf
+
 CMD ["apachectl", "-D", "FOREGROUND"]

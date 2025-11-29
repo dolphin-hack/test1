@@ -15,10 +15,15 @@ $errors = [
     'password' => ''
 ];
 
-// 入力値の取得（POST送信がなければ空文字）
-$password = $_POST['password'] ?? '';
+// 入力値の取得（送信がなければ空文字）
+$password = $_REQUEST['password'] ?? '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    $csrf_token = $_SESSION['csrf_token'];
 
     if (mb_strlen($password) < 4 || mb_strlen($password) > 20) {
         $errors['password'] = $lang["account_changepass_err001"];
@@ -55,11 +60,16 @@ include("./links.php");
 
     <div class="field">
     <label class="label"><?php echo $lang["account_password"]; ?>:</label> <p><?php echo $errors['password'] ?></p>
-    <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password, ENT_QUOTES, 'UTF-8'); ?>">
+    <div class="control" style="margin-top:1rem;margin-bottom:1rem">
+      <input class="input" type="text" name="loginid" value="セキュリティのため非表示" readonly>  
+    </div>
+    <input type="hidden" name="password" value=<?php echo htmlspecialchars($password, ENT_QUOTES, 'UTF-8'); ?> />
+    <!--<input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password, ENT_QUOTES, 'UTF-8'); ?>">
 
     <input type="checkbox" id="togglePassword">
-    <label for="togglePassword"><?php echo $lang["account_togglepass"]; ?></label>
+    <label for="togglePassword"><?php echo $lang["account_togglepass"]; ?></label>-->
 
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
     <input type="submit" class="button is-info" value="<?php echo $lang["account_changepass_apply"]; ?>" <?= $btn_disable ? 'disabled' : '' ?>>
     <input type="button" class="button is-info" value="<?php echo $lang["account_changepass_back"]; ?>" onclick="history.back();">
     </div>

@@ -16,8 +16,12 @@ $password = $_POST['password'] ?? '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) ) {
+      $errors[] = $lang["account_changesetting_msg001"];
+    }
+
     // パスワードバリデーション
-    if (mb_strlen($password) < 4 || mb_strlen($password) > 20) {
+    if (mb_strlen($password) < 8 || mb_strlen($password) > 20) {
         $errors['password'] = $lang["account_changepass_err001"];
     }
 

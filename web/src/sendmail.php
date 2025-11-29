@@ -32,6 +32,9 @@ if(isset($to_user_id) && tokencheck()){
   if( empty($_POST["title"] )|| empty($_POST["message"] ) ){
     $msg = $lang["sendmail_msg_err001"];
     $link = "sendmail.php";
+  } else if( !Friend::isFriend($user->id, $to_user_id) ){
+    $msg = "そのユーザは存在しないか、相互フォローではありません。";
+    $link = "sendmail.php";
   } else {
     $transaction = $user->sendMessage($to_user,$_POST["title"],$_POST["message"]);
     if($transaction){

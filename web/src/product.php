@@ -71,7 +71,7 @@ function showProduct($user, $lang){
     <article class="media">
         <figure class="media-left">
             <p class="image is-128x128" style="border: 1px solid #999" >
-                <img src="./img.php?id=<?php hp($product->id); ?>" alt=<?php hp($product->title); ?>>
+                <img src="./img.php?id=<?php hp($product->id); ?>" alt="<?php hp($product->title); ?>">
             </p>
         </figure>
 
@@ -132,7 +132,7 @@ function showProduct($user, $lang){
             </p>
         </div>
         <div class="message-body">
-            <p><?php print $c->text; ?></p>
+            <p><?php hp($c->text); ?></p>
         </div>
         </article>
     <?php } ?>
@@ -163,7 +163,8 @@ function showProducts($user, $lang){
     $products = null;
     if(isset($_GET["title"])){
         $products = array();
-        $rawp = Product::raw_query("SELECT * FROM products WHERE title LIKE '%" . $_GET["title"] ."%'")->find_many();
+        $title = trim($_GET["title"]);
+        $rawp = Model::factory('Product') ->where_like('title', "%{$title}%") ->find_many();
         foreach($rawp as $p){
             if($p->canSee($user)){
                 $products[] = $p;
@@ -190,7 +191,7 @@ function showProducts($user, $lang){
             <div class="field is-horizontal">
             <div class="field is-grouped">
             <p class="control is-expanded">
-                <input class="input is-rounded" type="text" name="title" placeholder="<?php echo $lang["product_showproducts_productname"]; ?>" value="<?php if(isset($_GET["title"])) print $_GET["title"]; ?>">
+                <input class="input is-rounded" type="text" name="title" placeholder="<?php echo $lang["product_showproducts_productname"]; ?>" value="<?php if(isset($_GET["title"])) hp($_GET["title"]); ?>">
             </p>
             <p class="control">
                 <input class="button is-info is-rounded" type="submit" value="<?php echo $lang["product_showproducts_searchproduct"]; ?>">
@@ -255,7 +256,7 @@ function makeProduct($user, $lang){
     }
     $firends = $user->getFollows();
 
-    if(isset($_POST["form_state"]) && $_POST["form_state"] == "confirm"){
+    if(isset($_POST["form_state"]) && $_POST["form_state"] == "confirm" && $_POST["csrf_token"] == $_SESSION["csrf_token"]){
         $filename=sha1(time() . "<scirpt>alert(1)</script>" . $user->id . rand());
 
         if($_FILES['img']['size'] > 1024 * 1024){
@@ -266,7 +267,7 @@ function makeProduct($user, $lang){
         $imgkey = "";
 
         // アップロードファイルのウイルス、ファイル種別チェック
-        if ( isset($_POST['url']) && !empty($_POST['url']) ) {
+        if ( isset($_POST['url']) && !empty($_POST['url']) && preg_match( '/^https?\:\/\/.*\.mbsdmarket2025\.local:?\w*\//', $_POST['url'] ) ) {
             $INSPECT_URL = $_POST['url'];
         }
 
@@ -315,7 +316,7 @@ function makeProduct($user, $lang){
         <?php if($filenew){ ?>
             <figure class="media-left">
                 <p class="image is-128x128">
-                    <img src="./img.php?tmp=<?php hp($imgkey); ?>" alt=<?php hp($_POST["title"]);?>></p>
+                    <img src="./img.php?tmp=<?php hp($imgkey); ?>" alt="<?php hp($_POST["title"]);?>"></p>
                 </p>
                 <input type="hidden" name="filecount" value="<?php hp($imgkey); ?>">
             </figure>            
@@ -324,7 +325,7 @@ function makeProduct($user, $lang){
 
         <div class="media-content">
 
-            <h2 class="title"><?php print $_POST["title"]; ?></h2>
+            <h2 class="title"><?php hp($_POST["title"]); ?></h2>
             <input type="hidden" name="title" value="<?php hp($_POST["title"]) ?>">
 
             <table class="table">
@@ -337,7 +338,7 @@ function makeProduct($user, $lang){
                     <tr>
                         <td><?php echo $lang["product_makeproduct_purchaserestriction"]; ?></td>
                         <td><?php if($_POST["type"] == "2"){print $lang["product_makeproduct_ristrictionlist"];}elseif($_POST["type"] == "1"){print $lang["product_makeproduct_mutualfollowers"];}elseif($_POST["type"]=="3"){print $lang["product_makeproduct_onlyfollowers"];}else{print $lang["product_makeproduct_norestriction"];} ?></td>
-                        <input type="hidden" name="type" value="<?php hp($_POST["type"]) ?>">
+                        <input type="hidden" id="ttype" name="type" value="<?php hp($_POST["type"]) ?>">
                     </tr>
                     <tr>
                         <td><?php echo $lang["product_makeproduct_eligiblebuyer"]; ?></td>
@@ -376,7 +377,7 @@ function makeProduct($user, $lang){
     </form>
 
 <script>
-var ttype = <?php hp($_POST["type"]) ?>;
+var ttype = document.GetElementById("ttype");
 if(ttype == 2){
     $("#targetusers").show();
 }
@@ -384,7 +385,7 @@ if(ttype == 2){
 
 <?php
     printFooter();
-    } elseif(isset($_POST["form_state"]) && $_POST["form_state"] == "commit"){
+    } elseif(isset($_POST["form_state"]) && $_POST["form_state"] == "commit" && $_POST["csrf_token"] == $_SESSION["csrf_token"]){
         $_POST["price"] = intval($_POST["price"])>0?intval($_POST["price"]):0;
         $product->title = $_POST["title"];
         $product->text = $_POST["text"];
@@ -543,7 +544,7 @@ if( isset($_GET["error"]) ){
                 }
             ?>
             <label for="target_cbx_<?php hp($f->id); ?>" class="checkbox" >
-                <input id="target_cbx_<?php hp($f->id); ?>" type="checkbox" name="targets[]" value="<?php hp($f->id);?>" <?php hp($c); ?>><?php print $f->name;//見えないけど…… ?>
+                <input id="target_cbx_<?php hp($f->id); ?>" type="checkbox" name="targets[]" value="<?php hp($f->id);?>" <?php hp($c); ?>><?php hp($f->name) ?>
             </label>
             <?php } ?>
         </div>
@@ -552,9 +553,8 @@ if( isset($_GET["error"]) ){
     <div class="field container">
     <button class="button is-info" id="submitbutton"><?php echo $lang["product_makeproduct_submit"]; ?></button>
     
-    <input type="hidden" name="csrf_tokon" value="<?php print $_SESSION["csrf_token"]; ?>">
+    <input type="hidden" name="csrf_token" value="<?php print $_SESSION["csrf_token"]; ?>">
     <input type="hidden" name="form_state" value="confirm">
-
     <input type="hidden" name="url" value="http://api.mbsdmarket2025.local:3000/api/inspect">
     </div>
 
@@ -672,8 +672,7 @@ function buyProduct($user, $lang){
 function ownProducts($user, $lang){
     $products = null;
     if(isset($_GET["title"])){
-        $products =
-        Product::raw_query("SELECT * FROM products WHERE title LIKE '%" . $_GET["title"] ."%' AND user_id = " . $user->id)->find_many();
+        $products = Model::factory('Product') ->where_like('title', "%{$_GET['title']}%")->where("user_id",$user->id)->find_many();
     } else {
         $products = Product::raw_query("SELECT * FROM products WHERE user_id = " . $user->id)->find_many();
     }
@@ -755,7 +754,7 @@ function ownProducts($user, $lang){
             <div class="field is-horizontal">
                 <div class="field is-grouped">
                     <p class="control is-expanded">
-                        <input class="input is-rounded" type="text" name="title" placeholder="<?php echo $lang["product_ownproducts_productname"]; ?>" value="<?php if(isset($_GET["title"])) print $_GET["title"]; ?>">
+                        <input class="input is-rounded" type="text" name="title" placeholder="<?php echo $lang["product_ownproducts_productname"]; ?>" value="<?php if(isset($_GET["title"])) hp($_GET["title"]); ?>">
                     </p>
                     <input type="hidden" name="mode" value="own">
                     <p class="control">

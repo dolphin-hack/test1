@@ -42,6 +42,13 @@ function heartbeat(){
     }, 10000);
 }
 heartbeat();
+window.addEventListener("load",()=>{
+    const titledivs = Array.from(document.getElementsByClassName("mail-title"));
+    titledivs.forEach((div)=>{
+        const text = div.getAttribute("s:value");
+        div.innerText = text;
+    });
+});
 </script>
 
 <div class="grid">
@@ -52,7 +59,7 @@ heartbeat();
                 <?php
                     $messages = $user->readMessages();
                     foreach($messages as $m){
-                        echo '<article class="media"><a href="./readmail.php?id=' . h($m->id) . '"><div class="media-content"><div class="content"><p><strong class="subtitle is-4">'.h($m->from_user()->name)."</strong><br />" . $m->title . "<br /></a></p></div></div></a></article>";
+                        echo '<article class="media"><a href="./readmail.php?id=' . h($m->id) . '"><div class="media-content"><div class="content"><p><strong class="subtitle is-4">'.h($m->from_user()->name).'</strong><br /><div class="mail-title" s:value="' . sanitize($m->title) . '"></div><br /></a></p></div></div></a></article>';
                     }
                 ?>
             </ul>
@@ -66,7 +73,7 @@ heartbeat();
                 <?php
                     $messages = $user->writeMessages();
                     foreach($messages as $m){
-                        echo '<article class="media"><a href="./readmail.php?id=' . h($m->id) . '"><div class="media-content"><div class="content"><p><strong class="subtitle is-4">'.h($m->from_user()->name)."</strong><br />" . $m->title . "<br /></a></p></div></div></a></article>";
+                        echo '<article class="media"><a href="./readmail.php?id=' . h($m->id) . '"><div class="media-content"><div class="content"><p><strong class="subtitle is-4">'.h($m->from_user()->name).'</strong><br /><div class="mail-title" s:value="' . sanitize($m->title) . '"></div><br /></a></p></div></div></a></article>';
                     }
                 ?>
             </ul>
@@ -87,7 +94,7 @@ heartbeat();
                     <article class="media" >
                         <figure class="media-left">
                             <p class="image is-128x128">
-                                <img src="./img.php?id=<?php hp($proc->id); ?>" alt=<?php hp($proc->title); ?>>
+                                <img src="./img.php?id=<?php hp($proc->id); ?>" alt="<?php hp($proc->title); ?>">
                             </p>
                         </figure>
                         <div class="media-content">

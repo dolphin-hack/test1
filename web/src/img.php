@@ -15,4 +15,5 @@ if(isset($_GET["tmp"])){
         print file_get_contents(DATA_IMAGEDIR."/null");
     }
 }
+
 ?>
