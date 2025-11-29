@@ -5,7 +5,12 @@ session_destroy();
 $redirect_param_name='to';
 if (isset($_GET[$redirect_param_name])) {
     $target = $_GET[$redirect_param_name];
-    header("Location: {$target}"."?text=%E3%83%AD%E3%82%B0%E3%82%A2%E3%82%A6%E3%83%88%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F");
+    $pattern = $_SERVER['HTTP_HOST'];
+    if(preg_match("#".$pattern."#", $target)){
+      header("Location: {$target}"."?text=%E3%83%AD%E3%82%B0%E3%82%A2%E3%82%A6%E3%83%88%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F");
+    }else{
+      header("Location: ./login.php"."?text=%E3%83%AD%E3%82%B0%E3%82%A2%E3%82%A6%E3%83%88%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F");
+    }
     exit();
 }
 if($user){

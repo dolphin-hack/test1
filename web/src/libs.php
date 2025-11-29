@@ -1,8 +1,14 @@
 <?php
 ini_set( 'display_errors', 0 );
 #error_reporting(E_ERROR | E_WARNING | E_PARSE);
+#header("X-XSS-Protection: 0");
 
-header("X-XSS-Protection: 0");
+ini_set("session.cookie_httponly", 1);
+ini_set("session.cookie_samesite", "Lax");
+ini_set("session.use_strict_mode",1);
+
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
 
 require_once (__DIR__ . "/lib/idiorm.php");
 require_once (__DIR__ . "/lib/paris.php");
@@ -25,8 +31,8 @@ define("DATA_IMAGEDIR", "/data/img");
 // ここをMySQLにかえる
 //ORM::configure("mysql:/data/market_sqlite3.db");
 ORM::configure('mysql:host=mysql;dbname=ecsite');
-ORM::configure('username', 'root');
-ORM::configure('password', 'password');
+ORM::configure('username', 'mbsd');
+ORM::configure('password', '00b31c6fb2aa50eeb734c13f924ebc5c');
 ORM::configure('driver_options', [
     PDO::MYSQL_ATTR_INIT_COMMAND       => 'SET NAMES utf8',
     PDO::ATTR_EMULATE_PREPARES         => false,
@@ -38,6 +44,10 @@ function h($str, $flags = ENT_COMPAT, $charset = "UTF-8") {
 }
 function hp($str){
     print h($str);
+}
+
+function sanitize($str){
+    return preg_replace('/[<>]/', '', $str);
 }
 
 function tokencheck(){
@@ -195,4 +205,5 @@ EOM;
 function printError($msg, $class = "is-danger") {
   echo("<div class='section'><div class='notification $class'><p class=''>$msg</p></div></div>");
 }
+
 ?>

@@ -10,6 +10,8 @@ function generateCouponCode() {
 
 $user = stateUser();
 if(isset($user) && isset($_POST["amount"])){
+  if($_POST["csrf_token"] == $_SESSION["csrf_token"]){ // start_csrf_check
+  if($user->priv === 1){
     printHeader("Generate Coupon");
 
     include("./links.php");
@@ -27,7 +29,7 @@ if(isset($user) && isset($_POST["amount"])){
 
     echo "<div class='section'>";
 
-    if($amount && is_numeric($amount)){ // 0ははじく
+    if($amount && is_numeric($amount) && $amount > 0 && preg_match("/^[0-9]{1,8}$/", $amount)){
         $amount = (int)$amount;
 
         // 新しいコードを生成
@@ -53,6 +55,11 @@ if(isset($user) && isset($_POST["amount"])){
 <?php
     // footer
     printFooter();
+  } else {
+    header("Location: ./index.php");
+    exit();
+  }
+  } // end_csrf_check
 } elseif (isset($user)){
     printHeader("Generate Coupon");
     include("./links.php");
@@ -71,6 +78,7 @@ if(isset($user) && isset($_POST["amount"])){
         <div class="field has-addons">
             <div class="control">
                 <input class="input" name="amount" type="number"></input>&nbsp;
+                <input type="hidden" name="csrf_token" value="<?php print $_SESSION["csrf_token"]; ?>">
             </div>
             <div class="control">
                 <input class="button" type="submit" value="<?php echo $lang["admin_coupon_gen_submit"]; ?>"></input>

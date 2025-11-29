@@ -12,20 +12,19 @@ services:
       - ./data/csv:/data/csv
     environment:
       - secret=mbsd
-    privileged: true
     restart: always
   mysql:
     image: mariadb:latest
     ports:
-      - '0.0.0.0:3306:3306'
+      - '127.0.0.1:3306:3306'
     volumes:
       - ./data/mysql:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_DATABASE: 'ecsite'
       MYSQL_USER: 'mbsd'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_PASSWORD: '00b31c6fb2aa50eeb734c13f924ebc5c'
+      MYSQL_ROOT_PASSWORD: '7ae0d6840847030e7e7a3a78a5c1f185'
     restart: always
 
   phpmyadmin:
@@ -33,17 +32,17 @@ services:
     links:
       - mysql:db
     ports:
-      - '0.0.0.0:5555:80'
+      - '127.0.0.1:5555:80'
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: '7ae0d6840847030e7e7a3a78a5c1f185'
     restart: always
 
   api:
     build:
       context: ./api
     ports:
-      - '3000:3000'
+      - '127.0.0.1:3000:3000'
     volumes:
       - ./api/src/:/data
     networks:

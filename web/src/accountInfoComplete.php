@@ -22,6 +22,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $loginid = $_POST["loginid"] ?? '';
     $name    = $_POST["name"] ?? '';
     $priv    = $_POST["priv"] ?? '';
+    
+    // IDに指定文字以外が含まれていた場合はエラーを返す
+    $symbols = '-_.@';
+    $cls = preg_quote($symbols, '/');
+    $pattern = '/[^A-Za-z0-9' . $cls . ']/';
+    if (preg_match($pattern, $loginid)){
+        $errors[] = $lang["account_changesetting_msg001"];
+    }
+    if (preg_match($pattern, $name)){
+        $errors[] = $lang["account_changesetting_msg001"];
+    }
+
+    if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        $errors[] = $lang["account_changesetting_msg001"];
+    }
 
     if (mb_strlen($loginid) < 4 || mb_strlen($loginid) > 20) {
         $errors[] = $lang["account_changesetting_err001"];
@@ -31,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errors[] = $lang["account_changesetting_err002"];
     }
 
-    if (!in_array($priv, ['0', '1'], true)) {
-      $errors[] = $lang["account_changesetting_err003"];
-    }
+    // if (!in_array($priv, ['0', '1'], true)) {
+    //   $errors[] = $lang["account_changesetting_err003"];
+    // }
 
     $otherUser = User::where('loginid', $loginid)->where_not_equal('id', $user->id)->find_one();
 
@@ -52,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $result_msg = $lang["account_changesetting_err005"];
         }
     } else {
-        $result_msg = $lang["account_changesetting_msg002"] . "<br>";
+        $result_msg = $lang["account_changesetting_err005"] . "<br>";
         foreach ($errors as $error) {
             $result_msg .= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') . "<br>";
         }

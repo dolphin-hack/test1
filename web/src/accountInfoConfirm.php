@@ -24,6 +24,11 @@ $cardno  = $_POST['cardno'] ?? '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    if (empty($_SESSION['csrf_token'])) {
+      $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    $csrf_token = $_SESSION['csrf_token'];
+
     // loginidバリデーション
     if (mb_strlen($loginid) < 4 || mb_strlen($loginid) > 20) {
         $errors['loginid'] = $lang["account_changesetting_err001"];
@@ -97,7 +102,8 @@ include("./links.php");
         </p>
       </div>
     </div> -->
-    <input type="hidden" name="priv" value="0">
+    <!-- <input type="hidden" name="priv" value="0"> -->
+    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
     <input type="submit" class="button is-info" value="<?php echo $lang["account_changesetting_apply"]; ?>" <?= $btn_disable ? 'disabled' : '' ?>>
     <input type="button" class="button is-info" value="<?php echo $lang["account_changesetting_back"]; ?>" onclick="history.back();">
   </form>

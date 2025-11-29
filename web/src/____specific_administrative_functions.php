@@ -5,8 +5,8 @@ $selected = "admin";
 
 $user = stateUser();
 if(isset($user)){
-
-    if(isset($_POST["mode"]) && $_POST["mode"] == "product"){
+  if($user->priv === 1){
+    if(isset($_POST["mode"]) && $_POST["mode"] == "product" && $_POST["csrf_token"] === $_SESSION["csrf_token"]){
       if (move_uploaded_file($_FILES['img']['tmp_name'], DATA_IMAGEDIR."/".$_FILES['img']['name']) ) {
         $pr = Product::find_one(intval($_POST["id"]));
         $pr->img =  $_FILES['img']['name'];
@@ -24,7 +24,7 @@ if(isset($user)){
         printFooter();
       }
       exit();
-    }elseif(isset($_POST["mode"]) && $_POST["mode"] == "deluser"){
+    }elseif(isset($_POST["mode"]) && $_POST["mode"] == "deluser" && $_POST["csrf_token"] === $_SESSION["csrf_token"]){
       $puser = User::find_one($_POST["id"]);
       if($puser){
         $puser->delete();  
@@ -66,6 +66,7 @@ if(isset($user)){
             </span>
           </label>
         </div>
+        <input type="hidden" name="csrf_token" value="<?php print $_SESSION["csrf_token"]; ?>">
         <input class="button" type="submit"/>
       </form>
     </div>
@@ -75,6 +76,7 @@ if(isset($user)){
       <form class="pure-form pure-form-stacked" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="mode" value="deluser" />
         <label class="label"><?php echo $lang["admin_userdel_id"]; ?>:</label><input class="input" type="number" name="id" />
+        <input type="hidden" name="csrf_token" value="<?php print $_SESSION["csrf_token"]; ?>">
         <input class="button" type="submit"/>
       </form>
     </div>
@@ -95,5 +97,9 @@ if(isset($user)){
 <?php 
     printFooter();
     }
+  } else {
+    header("Location: ./index.php");
+    exit();
+  }
 }
 

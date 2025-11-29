@@ -29,7 +29,7 @@ printHeader("Login");
     <?php if(isset($_POST["loginid"])){
       printError($lang["login_error001"]);
     } ?>
-    <?php if(isset($_GET["text"])){echo '<div class="container is-max-tablet"><div class="notification is-danger is-light"><strong>' . $_GET["text"] . '</strong></div></div>';} ?>
+    <?php if(isset($_GET["text"])){echo '<div class="container is-max-tablet"><div class="notification is-danger is-light"><strong>' . sanitize($_GET["text"]) . '</strong></div></div>';} ?>
 
     <div class="container is-max-tablet">
       <form class="box" method="POST">

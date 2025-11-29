@@ -38,11 +38,16 @@ class Coupon extends Model{
 
     public static function update($user, $code){
         if(!empty($code) && is_object($user)){
+            // get db instance for lock
+	    $db = ORM::get_db();
             try {
-                $c = Model::factory("Coupon")
-                ->where('code', $code)
-                ->find_one();
-                if($c instanceof Model && !$c->used){
+                // start transaction
+		$db->beginTransaction();
+	        // get coupon state with code
+                $stmt = $db->prepare("SELECT * FROM coupons WHERE code = :code FOR UPDATE");
+                $stmt->execute([':code' => $code]);
+	        $c = $stmt->fetch(PDO::FETCH_OBJ);
+                if($c && !$c->used){
                     // ポイント追加処理を入れる
                     $user->point += intval($c->amount);
                     $user->save();
@@ -51,14 +56,20 @@ class Coupon extends Model{
                     $chistory->user_id = $user->id;
                     $chistory->amount = $c->amount;
                     $chistory->save();
-		    // 2013-02-24 Yamada: これを消すとうまく動かないので削除しないこと
-		    sleep(1);
                     // クーポンコードを使用済みに変更
-                    $c->used = 1;
-                    $c->save();
+		    $stmt = $db->prepare("UPDATE coupons SET used = 1 WHERE code = :code");
+		    $stmt->execute([':code' => $code]);
+                    // save
+		    $db->commit();
                     return true;
-                }
+		} else {
+                    // coupon code is not found
+                    error_log("ERROR: coupon code not found - ${code}");
+                    $db->rollBack();
+		    return false;
+		}
             } catch (Exception $e) {
+                $db->rollBack();
                 error_log("ERROR: " . $e->getMessage());
             }
         }
@@ -66,4 +77,6 @@ class Coupon extends Model{
 
 
 }
+
+
 ?>

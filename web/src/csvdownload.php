@@ -10,17 +10,18 @@ if(!$user){
 
 
 $filename = "/data/csv/".$_GET["filename"];
+$sanitized_filename = str_replace(array("../", "./"), "", $filename);
 
-if($filename && file_exists($filename) ){
+if($sanitized_filename && file_exists($sanitized_filename) ){
 	header('Cache-Control: private');
 	header('Content-Type: application/octet-stream');
 	header('Content-Transfer-Encoding: binary');
-	header('Content-Length: ' . filesize($filename));
-	header('Content-Disposition: attachment; filename="' . h(basename($filename)) . '"');
-	readfile( $filename );
+	header('Content-Length: ' . filesize($sanitized_filename));
+	header('Content-Disposition: attachment; filename="' . h(basename($sanitized_filename)) . '"');
+	readfile( $sanitized_filename );
 	exit;
 } else {
-	$err = h($filename) . $lang["csvdl_err001"];
+	$err = h($sanitized_filename) . $lang["csvdl_err001"];
 }
 ?>
 

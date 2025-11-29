@@ -23,6 +23,7 @@ $lang = include "lang_ja.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
   $loginid = trim($_POST["loginid"]);
   $password = $_POST["password"];
+  $name = $_POST["name"];
 
   // IDに指定文字以外が含まれていた場合はエラーを返す
   $symbols = '-_.@';
@@ -32,25 +33,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     errexit($lang["register_err002"]);
   }
 
+  if (preg_match($pattern, $name)){
+    errexit($lang["register_err002"]);
+  }
+
   // ログインIDが文字数制限に合致するか確認
   if( !(strlen($loginid) >= 4 && strlen($loginid) <= 20) ){
     errexit($lang["register_err003"]);
   }
 
   // パスワードが空文字でないか確認
-  if( !(strlen($password) >= 1) ){
+  if( !(strlen($password) >= 8) ){
     errexit($lang["register_err004"]);
   }
 
   // ニックネームが空文字でないか確認
-  if( !(strlen($password) >= 1) ){
+  if( !(strlen($name) >= 4) ){
     errexit($lang["register_err007"]);
   }
 
-  $cardno = "1234-1234-1234-1234";
-  if( !( preg_match("/^\d{4}-\d{4}-\d{4}-\d{4}$/",$cardno) ) ){
-    errexit($lang["register_err005"]);
-  }
+  $cardno = "";
 
   $uid = User::make($loginid, $password, $_POST["name"], $cardno);
   if($uid){
@@ -91,14 +93,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="field">
       <label class="label"><?php echo $lang["register_password"]; ?></label>
       <div class="control">
-        <input class="input" type="password" name="password" placeholder="Password" required>
+        <input class="input" type="password" name="password" placeholder="Password" minlength="8" required>
       </div>
     </div>
     
     <div class="field">
       <label class="label"><?php echo $lang["register_name"]; ?></label>
       <div class="control">
-        <input class="input" type="text" name="name" placeholder="Mitsui Taro" required>
+        <input class="input" type="text" name="name" placeholder="Mitsui Taro" minlength="4" required>
       </div>
     </div>
     

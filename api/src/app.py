@@ -1,6 +1,9 @@
 import re
 import subprocess
 import os
+import random
+import string
+import datetime
 from base64 import b64decode
 from flask import Flask, jsonify, request
 
@@ -26,8 +29,12 @@ def _writeFile(filename, data):
 	return res
 
 
+def _genFilename():
+   return ''.join(random.choices(string.ascii_letters + string.digits, k=16))+'_'+str(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+
+
 def _execCommand(command):
-	command = re.sub('[\'\"\`\<\>\!\@\#\%\^\&\*\\{\}\[\}\]\:\;\?].*', '', command)
+	command = re.sub('[\|\$\'\"\`\<\>\!\@\#\%\^\&\*\\{\}\[\}\]\:\;\?]', '', command)
 	print("command: {}".format(command))
 	proc = subprocess.Popen(
 		command,
@@ -45,17 +52,19 @@ def _execCommand(command):
 def _scanFile(filename, data):
 	result = {'result':'', 'judge':False, 'error':False}
 
-	if ( not _writeFile(filename, data) ):
+	tmp_name = _genFilename()
+
+	if ( not _writeFile(tmp_name, data) ):
 		result['result'] = 'File Upload Error'
 		return result
 
 	## Phase 1: File Name Check
-	if ( not (re.match('^[a-zA-z0-9\-\_\.<>\(\)\[\]]+\.(jpg||png|gif)', filename.lower())) ):
+	if ( not (re.match('^[a-zA-z0-9\-\_\.<>\(\)\[\]]+\.(jpg||png|gif)$', filename.lower())) ):
 		result['result'] = 'file extention is invalid'
 		return result
 
 	## Phase 2: File Sigunature Check
-	command = "file " + FILE_DIR + filename
+	command = "file " + FILE_DIR + tmp_name
 	sig, err = _execCommand(command)
 
 	if ( err.decode('utf-8') != '' ):
@@ -63,15 +72,15 @@ def _scanFile(filename, data):
 		result['result'] = err.decode('utf-8') #for debug
 
 	else:
-		if ( re.match('^'+FILE_DIR+'[a-zA-z0-9\-\_\.<>\(\)\[\]]+\.(jpg||png|gif): JPEG image data', sig.decode('utf-8')) ):
+		if ( re.match('^'+FILE_DIR+'\w{16}\_\d{14}: JPEG image data', sig.decode('utf-8')) ):
 			result['result'] = 'jpeg'
 			result['judge'] = True
 
-		elif ( re.match('^'+FILE_DIR+'[a-zA-z0-9\-\_\.<>\(\)\[\]]+\.(jpg||png|gif): PNG image data', sig.decode('utf-8')) ):
+		elif ( re.match('^'+FILE_DIR+'\w{16}\_\d{14}: PNG image data', sig.decode('utf-8')) ):
 			result['result'] = 'png'
 			result['judge'] = True
 
-		elif ( re.match('^'+FILE_DIR+'[a-zA-z0-9\-\_\.<>\(\)\[\]]+\.(jpg||png|gif): GIF image data', sig.decode('utf-8')) ):
+		elif ( re.match('^'+FILE_DIR+'\w{16}\_\d{14}: GIF image data', sig.decode('utf-8')) ):
 			result['result'] = 'gif'
 			result['judge'] = True
 
@@ -81,7 +90,7 @@ def _scanFile(filename, data):
 		## Phase3: Malicious Code Check
 		## XSS対策としてHTMLタグっぽい文字列が含まれていたら悪性コードとして判定
 		try:
-			with open(FILE_DIR + filename, 'rb') as fd:
+			with open(FILE_DIR + tmp_name, 'rb') as fd:
 				data = fd.read()
 				## テスト用のシグネチャ
 				if ( re.search(rb'sai8233Bm6k1fuwvU6UOZ7nrpIZiiah1', data) ):
@@ -91,8 +100,6 @@ def _scanFile(filename, data):
 		except Exception as e:
 			result['result'] = str(e) #for debug
 
-	## File Delete
-	#os.remove(FILE_DIR + filename)
 
 	return result
 
@@ -124,7 +131,6 @@ def FileScanner():
 
 
 	print('[*] filename: {}'.format(filename))
-	print('[*] data: {}'.format(data))
 	
 	result = _scanFile(filename, data)
 	print('[*] {}'.format(result))
@@ -141,4 +147,4 @@ def status():
 
 
 if __name__ == '__main__':
-	app.run(debug=True,host='0.0.0.0', port=3000)
+	app.run(host='0.0.0.0', port=3000)
